@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة الملاكمة</title>
+    <style>
+        body { text-align: center; background-color: #f0f0f0; font-family: Arial, sans-serif; }
+        #gameCanvas { background-color: #000; width: 100%; height: 400px; }
+        .button { padding: 10px 20px; margin: 20px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>لعبة الملاكمة</h1>
+    <canvas id="gameCanvas"></canvas>
+    <br>
+    <button class="button" onclick="movePlayer('left')">تحرك لليسار</button>
+    <button class="button" onclick="movePlayer('right')">تحرك لليمين</button>
+    <button class="button" onclick="jumpPlayer()">قفز</button>
+
+    <script>
+        // وظائف JavaScript لتحريك الشخصية
+        let playerPosition = { x: 50, y: 350 };
+
+        function drawPlayer() {
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'red';
+            ctx.fillRect(playerPosition.x, playerPosition.y, 50, 50);
+        }
+
+        function movePlayer(direction) {
+            if (direction === 'left') playerPosition.x -= 10;
+            if (direction === 'right') playerPosition.x += 10;
+            drawPlayer();
+        }
+
+        function jumpPlayer() {
+            let initialY = playerPosition.y;
+            playerPosition.y -= 50;
+            drawPlayer();
+            setTimeout(() => {
+                playerPosition.y = initialY;
+                drawPlayer();
+            }, 300);
+        }
+
+        window.onload = function() {
+            drawPlayer();
+        };
+    </script>
+</body>
+</html>
